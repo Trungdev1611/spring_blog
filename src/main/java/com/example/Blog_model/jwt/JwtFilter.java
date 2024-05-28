@@ -7,10 +7,10 @@ import jakarta.servlet.ServletException;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Qualifier;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.web.authentication.WebAuthenticationDetailsSource;
 import org.springframework.stereotype.Component;
 import org.springframework.web.filter.OncePerRequestFilter;
@@ -22,10 +22,9 @@ import java.util.List;
 @Component
 public class JwtFilter extends OncePerRequestFilter {
 
-
-
-//    @Autowired
-//    private HandlerExceptionResolver resolver;
+    @Qualifier("handlerExceptionResolver") // this annotation allow throw exception to catch in global exception
+    @Autowired
+    private HandlerExceptionResolver resolver;
 
     JwtProvider jwtProvider;
     CustomUserDetailsService userDetailsService;
@@ -59,7 +58,7 @@ public class JwtFilter extends OncePerRequestFilter {
             else {
                 //with request login, register, swagger don't have token..
                 String reqPath = request.getRequestURI();
-                List<String> urlAcceptNotToken = Arrays.asList("/auth/create_user", "/auth/login");
+                List<String> urlAcceptNotToken = Arrays.asList("/auth/register", "/auth/login");
                   boolean isUrlAccepted =   urlAcceptNotToken.stream().anyMatch(reqPath::contains);
                   if(!isUrlAccepted) {
                       throw new JwtExeption();
@@ -72,7 +71,7 @@ public class JwtFilter extends OncePerRequestFilter {
         catch (Exception e) {
             System.out.println("Spring Security Filter Chain Exception:" +
                     e.getMessage());
-//            resolver.resolveException(request, response, null, e);
+            resolver.resolveException(request, response, null, e);
         }
 
     }

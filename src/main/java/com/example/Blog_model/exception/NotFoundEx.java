@@ -8,7 +8,7 @@ import lombok.Setter;
 @Setter
 @NoArgsConstructor
 public class NotFoundEx extends RuntimeException {
-    String message = "Don't have permission to access";
+    String message = "Not Found";
 
     public NotFoundEx(String message) {
         this.message = message;
