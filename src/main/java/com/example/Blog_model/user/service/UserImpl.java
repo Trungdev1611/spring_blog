@@ -5,6 +5,7 @@ import com.example.Blog_model.exception.NotFoundEx;
 import com.example.Blog_model.jwt.JwtProvider;
 import com.example.Blog_model.role.entity.Role;
 import com.example.Blog_model.role.respository.RoleRespository;
+import com.example.Blog_model.user.dto.UserInfoDTO;
 import com.example.Blog_model.user.dto.UserLoginDTO;
 import com.example.Blog_model.user.dto.UserRegisterDTO;
 import com.example.Blog_model.user.entity.User;
@@ -69,6 +70,19 @@ public class UserImpl implements UserInterface {
 
 
     }
+
+    @Override
+    public UserInfoDTO getInfo(UserInfoDTO userInfoDTO) {
+
+        //get object current user after login
+        Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
+
+        UserInfoDTO userInfo = new UserInfoDTO();
+        userInfo.setNameUser(authentication.getName());
+        userInfo.setNameRoles( authentication.getAuthorities());
+        return userInfo;
+    }
+
     @Override
     public UserRegisterDTO createUser(UserRegisterDTO userData) {
         //check exists username

@@ -1,5 +1,6 @@
 package com.example.Blog_model.user.controller;
 
+import com.example.Blog_model.user.dto.UserInfoDTO;
 import com.example.Blog_model.user.dto.UserLoginDTO;
 import com.example.Blog_model.user.dto.UserRegisterDTO;
 import com.example.Blog_model.user.service.UserImpl;
@@ -28,6 +29,12 @@ public class UserController {
 
         UserLoginDTO response =  userImpl.loginUser(userData);
         return new ResponseEntity<>(response, HttpStatus.CREATED);
+    }
+
+    @GetMapping("auth/user_info")
+    ResponseEntity<UserInfoDTO> getUserInfo(@RequestBody UserInfoDTO userInfoDTO) {
+        UserInfoDTO response = userImpl.getInfo(userInfoDTO);
+        return new ResponseEntity<>(response, HttpStatus.OK);
     }
 
 //    @GetMapping("/users/{idUser}")

@@ -21,7 +21,7 @@ import org.springframework.stereotype.Service;
 @Service
 public class CustomUserDetailsService implements UserDetailsService {
 
-    private UserRepository userRepository;
+    private final UserRepository userRepository;
 
     CustomUserDetailsService(UserRepository userRepository) {
         this.userRepository = userRepository;
@@ -35,9 +35,6 @@ public class CustomUserDetailsService implements UserDetailsService {
         User user = userRepository.findByUsername(username)
                 .orElseThrow(() -> new NotFoundEx("Not found"));
 
-        // lấy các quyền của user tìm được
-//        Set<GrantedAuthority> authorities = user.getRole().stream()
-//                .map((role) -> new SimpleGrantedAuthority(role.getRoleName())).collect(Collectors.toSet());
 
         Set<GrantedAuthority> authorities = new HashSet<>();
         if (user.getRole() != null) {

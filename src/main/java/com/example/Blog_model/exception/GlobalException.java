@@ -73,4 +73,6 @@ public class GlobalException {
         Response error = new Response(0, ex.getMessage(), null);
         return new ResponseEntity<>(error, HttpStatus.INTERNAL_SERVER_ERROR);
     }
+
+
 }
