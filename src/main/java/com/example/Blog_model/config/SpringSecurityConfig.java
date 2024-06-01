@@ -2,8 +2,11 @@ package com.example.Blog_model.config;
 
 import com.example.Blog_model.exception.JWTAuthenticationEntryPoint;
 import com.example.Blog_model.jwt.JwtFilter;
+import io.swagger.v3.oas.annotations.enums.SecuritySchemeType;
+import io.swagger.v3.oas.annotations.security.SecurityScheme;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.authentication.configuration.AuthenticationConfiguration;
@@ -17,9 +20,14 @@ import org.springframework.security.web.authentication.UsernamePasswordAuthentic
 
 @Configuration //specify this file is a config file
 @EnableWebSecurity //authentication with url
+
+// http://localhost:8080/swagger-ui/index.html
+// start config jwt in swagger
+@SecurityScheme(name = "Bearer Authentication", type = SecuritySchemeType.HTTP, bearerFormat = "JWT", scheme = "bearer")
+
 public class SpringSecurityConfig {
 
-    private JwtFilter jwtFilter;
+    private final JwtFilter jwtFilter;
     private JWTAuthenticationEntryPoint jwtAuthenticationEntryPoint;
 
 
@@ -46,13 +54,17 @@ public class SpringSecurityConfig {
                 .cors(Customizer.withDefaults())
                 .authorizeHttpRequests((authorize) -> authorize
                         .requestMatchers("/auth/**").permitAll()
+                // accept swagger
+                        .requestMatchers(HttpMethod.OPTIONS).permitAll()
+                        .requestMatchers("/swagger-ui/**").permitAll()
+                        .requestMatchers("/v3/api-docs/**").permitAll()
                         .anyRequest().authenticated()) // any different request need to be authenticated
-                // b?t exception ? ?ây -- các excetion không có quy?n truy c?p tài nguyên
+                // catch exception here--  exceptions don't permission to access
                 .exceptionHandling((ex) -> ex.authenticationEntryPoint(jwtAuthenticationEntryPoint))
                 // disable session
 
                 .sessionManagement(session -> session.sessionCreationPolicy(SessionCreationPolicy.STATELESS));
-        http.addFilterBefore( jwtFilter, UsernamePasswordAuthenticationFilter.class);
+        http.addFilterBefore(jwtFilter, UsernamePasswordAuthenticationFilter.class);
         return http.build();
     }
 

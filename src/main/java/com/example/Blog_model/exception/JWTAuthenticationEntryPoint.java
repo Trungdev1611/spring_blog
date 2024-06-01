@@ -21,6 +21,6 @@ public class JWTAuthenticationEntryPoint implements AuthenticationEntryPoint {
                          AuthenticationException authException) throws IOException, ServletException {
         response.sendError(HttpServletResponse.SC_UNAUTHORIZED,
                 // authException.getMessage()
-                "Lỗi trong entrypoin mẹ rồi"); // lỗi 401 và message
+                "Lỗi trong entrypoint mẹ rồi"); // lỗi 401 và message
     }
 }

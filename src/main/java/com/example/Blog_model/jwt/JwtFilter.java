@@ -58,7 +58,7 @@ public class JwtFilter extends OncePerRequestFilter {
             else {
                 //with request login, register, swagger don't have token..
                 String reqPath = request.getRequestURI();
-                List<String> urlAcceptNotToken = Arrays.asList("/auth/register", "/auth/login");
+                List<String> urlAcceptNotToken = Arrays.asList("/auth/register", "/auth/login", "/swagger-ui", "/v3/api-docs");
                   boolean isUrlAccepted =   urlAcceptNotToken.stream().anyMatch(reqPath::contains);
                   if(!isUrlAccepted) {
                       throw new JwtExeption();
