@@ -1,11 +1,14 @@
 package com.example.Blog_model.user.entity;
 
+import com.example.Blog_model.post.entity.Post;
 import com.example.Blog_model.role.entity.Role;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Getter;
 import lombok.NoArgsConstructor;
 import lombok.Setter;
+
+import java.util.List;
 
 @Entity
 @Getter
@@ -32,4 +35,7 @@ public class User {
     @ManyToOne // n user - 1 role
     @JoinColumn(name = "roleId") // reference to roleId column
     private Role role;
+
+    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
+    private List<Post> posts;
 }

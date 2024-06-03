@@ -4,6 +4,7 @@ import com.example.Blog_model.response.Response;
 import jakarta.validation.ConstraintViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.security.core.AuthenticationException;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.FieldError;
 import org.springframework.web.bind.MethodArgumentNotValidException;
@@ -63,6 +64,13 @@ public class GlobalException {
 
         });
         Response responseError = new Response(0, "error", errors);
+        return new ResponseEntity<>(responseError, HttpStatus.BAD_REQUEST);
+    }
+
+    // exception login
+    @ExceptionHandler(AuthenticationException.class)
+    public ResponseEntity<Object> handleAuthenticationException(AuthenticationException ex) {
+        Response responseError = new Response(0, "please check username or password", null);
         return new ResponseEntity<>(responseError, HttpStatus.BAD_REQUEST);
     }
 

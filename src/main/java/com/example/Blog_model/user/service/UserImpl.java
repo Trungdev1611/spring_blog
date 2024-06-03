@@ -64,7 +64,7 @@ public class UserImpl implements UserInterface {
         System.out.println(11111);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         System.out.println(77777);
-       String token = jwtProvider.generateToken(authentication);
+        String token = jwtProvider.generateToken(authentication);
         System.out.println(token);
         return new UserLoginDTO(userDetail.getUsername(), token);
 
@@ -77,6 +77,8 @@ public class UserImpl implements UserInterface {
         //get object current user after login
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
+        UserAddMoreInfo userAddMoreInfo = (UserAddMoreInfo) (authentication.getPrincipal()) ;
+        System.out.println("idUser::: " + userAddMoreInfo.getId());
         UserInfoDTO userInfo = new UserInfoDTO();
         userInfo.setNameUser(authentication.getName());
         userInfo.setNameRoles( authentication.getAuthorities());

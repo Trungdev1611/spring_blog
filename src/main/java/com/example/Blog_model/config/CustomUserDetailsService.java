@@ -7,6 +7,7 @@ import java.util.stream.Collectors;
 import com.example.Blog_model.exception.NotFoundEx;
 import com.example.Blog_model.user.entity.User;
 import com.example.Blog_model.user.respository.UserRepository;
+import com.example.Blog_model.user.service.UserAddMoreInfo;
 import org.springframework.security.core.GrantedAuthority;
 import org.springframework.security.core.authority.SimpleGrantedAuthority;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -40,8 +41,8 @@ public class CustomUserDetailsService implements UserDetailsService {
         if (user.getRole() != null) {
             authorities.add(new SimpleGrantedAuthority(user.getRole().getNameRole()));
         }
-        return new org.springframework.security.core.userdetails.User(user.getUsername(), user.getPassword(),
-                authorities);
+        return new UserAddMoreInfo(user.getUsername(), user.getPassword(),
+                authorities, user.getUserId());
     }
 
 }
