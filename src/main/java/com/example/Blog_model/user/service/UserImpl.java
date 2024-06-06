@@ -3,6 +3,7 @@ package com.example.Blog_model.user.service;
 import com.example.Blog_model.exception.DataExists;
 import com.example.Blog_model.exception.NotFoundEx;
 import com.example.Blog_model.jwt.JwtProvider;
+import com.example.Blog_model.mapper.UserMapper;
 import com.example.Blog_model.role.entity.Role;
 import com.example.Blog_model.role.respository.RoleRespository;
 import com.example.Blog_model.user.dto.UserInfoDTO;
@@ -28,6 +29,8 @@ public class UserImpl implements UserInterface {
     private final JwtProvider jwtProvider;
     private final AuthenticationManager authenticationManager;
 
+//    @Autowired
+private final UserMapper userMapper = UserMapper.INSTANCE;
     @Autowired
     public UserImpl(UserRepository userRepository,
                     RoleRespository roleRespository,
@@ -40,9 +43,6 @@ public class UserImpl implements UserInterface {
         this.jwtProvider = jwtProvider;
         this.authenticationManager = authenticationManager;
     }
-
-
-
 
 
     @Override
@@ -61,7 +61,6 @@ public class UserImpl implements UserInterface {
         System.out.println(usernamePasswordAuthenticationToken);
 
         Authentication authentication = authenticationManager.authenticate(usernamePasswordAuthenticationToken);
-        System.out.println(11111);
         SecurityContextHolder.getContext().setAuthentication(authentication);
         System.out.println(77777);
         String token = jwtProvider.generateToken(authentication);
@@ -91,25 +90,27 @@ public class UserImpl implements UserInterface {
         if (userRepository.existsByUsername(userData.getUsername())) {
             throw new DataExists("Username already exits in database");
         }
-        User user = new User();
+
         Role roleForNewUser;
         //get Role from data
-        if(userData.getRoleName().equals("admin")) {
+        if(userData.getRoleName() != null && userData.getRoleName().equals("admin")) {
             roleForNewUser = roleRespository.findByNameRole("admin");
         }
         else {
             roleForNewUser = roleRespository.findByNameRole("user");
         }
+        // Map UserRegisterDTO to User entity
+        User user = userMapper.userRegisterDtoToUser(userData);
 
         user.setPassword(passwordEncoder.encode(userData.getPassword())); //encode to protect in database
-        user.setRole(roleForNewUser);
-        user.setEmail(userData.getEmail());
-        user.setUsername(userData.getUsername());
-
-        userRepository.save(user);
         //if role is not admin, return user as role
-        userData.setUsername(user.getUsername());
+        user.setRole(roleForNewUser);
+
+        System.out.println(user.toString());
+        userRepository.save(user);
+
         return userData;
     }
 
 }
+

@@ -1,21 +1,16 @@
 package com.example.Blog_model.user.entity;
 
-import com.example.Blog_model.post.entity.Post;
 import com.example.Blog_model.role.entity.Role;
 import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Getter;
-import lombok.NoArgsConstructor;
-import lombok.Setter;
+import lombok.*;
 
-import java.util.List;
 
 @Entity
 @Getter
 @Setter
 @NoArgsConstructor
 @AllArgsConstructor
-
+@ToString
 //@Table(uniqueConstraints={@UniqueConstraint(columnNames={"email"})})
 public class User {
     @Id
@@ -36,6 +31,4 @@ public class User {
     @JoinColumn(name = "roleId") // reference to roleId column
     private Role role;
 
-    @OneToMany(fetch = FetchType.LAZY, mappedBy = "user", cascade = CascadeType.ALL)
-    private List<Post> posts;
 }
