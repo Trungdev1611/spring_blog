@@ -29,7 +29,7 @@ public class UserImpl implements UserInterface {
     private final JwtProvider jwtProvider;
     private final AuthenticationManager authenticationManager;
 
-//    @Autowired
+
 private final UserMapper userMapper = UserMapper.INSTANCE;
     @Autowired
     public UserImpl(UserRepository userRepository,
@@ -76,8 +76,8 @@ private final UserMapper userMapper = UserMapper.INSTANCE;
         //get object current user after login
         Authentication authentication = SecurityContextHolder.getContext().getAuthentication();
 
-        UserAddMoreInfo userAddMoreInfo = (UserAddMoreInfo) (authentication.getPrincipal()) ;
-        System.out.println("idUser::: " + userAddMoreInfo.getId());
+//        UserAddMoreInfo userAddMoreInfo = (UserAddMoreInfo) (authentication.getPrincipal()) ;
+//        System.out.println("idUser::: " + userAddMoreInfo.getId());
         UserInfoDTO userInfo = new UserInfoDTO();
         userInfo.setNameUser(authentication.getName());
         userInfo.setNameRoles( authentication.getAuthorities());
