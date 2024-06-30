@@ -1,5 +1,4 @@
 import axios from "axios";
-import queryString from "query-string";
 
 
 const BASE_URL = "http://localhost:8080";
@@ -49,9 +48,7 @@ instance.interceptors.response.use(
 );
 
 
-function queryStringData(url, params) {
-  return queryString.stringifyUrl({ url: url, query: params });
-}
+
 export const typeFormData = {
     headers: { "Content-Type": "multipart/form-data" },
   };
@@ -60,8 +57,7 @@ export const typeFormData = {
 //nếu truyền formData thì ta pass thêm 1 tham số thứ 3 vào method là typeFormData thôi, nó sẽ tự ghi đè application/json
 //VD: post: (url, payload?: unknown) => instance.post(url, payload, typeFormData),
 export const Apiclient = {
-  get: (url, payload) =>
-    instance.get(queryStringData(url, payload)),
+  get: (url, params) => instance.get(url, { params }),
   post: (url, payload) => instance.post(url, payload),
   patch: (url, payload) => instance.patch(url, payload),
   put: (url, payload) => instance.put(url, payload),

@@ -1,0 +1,115 @@
+Khi xây dựng một ứng dụng bán hàng với Spring Boot và ReactJS, có một số mối quan hệ và thực thể quan trọng mà bạn cần xem xét để đảm bảo ứng dụng của bạn có thể hoạt động một cách hiệu quả và đáp ứng được các nhu cầu nghiệp vụ. Dưới đây là một số gợi ý về các mối quan hệ và thực thể khác mà bạn có thể thêm vào database của mình:
+
+Store (Cửa hàng):
+
+id
+
+name
+
+location
+
+owner
+
+products (quan hệ One-to-Many với Product)
+
+employees (quan hệ One-to-Many với Employee)
+
+orders (quan hệ One-to-Many với Order)
+
+Product (Sản phẩm):
+
+id
+
+name
+
+price
+
+dateExp
+
+quantity
+
+discount
+
+store (quan hệ Many-to-One với Store)
+
+orders (quan hệ Many-to-Many với Order qua OrderProduct)
+
+
+Employee (Nhân viên):
+
+id
+
+name
+
+position
+
+salary
+
+store (quan hệ Many-to-One với Store)
+
+
+Customer (Khách hàng):
+
+id
+
+name
+
+email
+
+phone
+
+address
+
+orders (quan hệ One-to-Many với Order)
+
+
+
+Order (Đơn hàng):
+
+id
+
+date
+
+totalAmount
+
+status
+
+customer (quan hệ Many-to-One với Customer)
+
+store (quan hệ Many-to-One với Store)
+
+orderProducts (quan hệ One-to-Many với OrderProduct)
+
+
+OrderProduct (Chi tiết đơn hàng):
+
+id
+
+order (quan hệ Many-to-One với Order)
+
+product (quan hệ Many-to-One với Product)
+
+quantity
+
+price
+
+
+Supplier (Nhà cung cấp):
+
+id
+
+name
+
+contactInfo
+
+products (quan hệ Many-to-Many với Product qua SupplierProduct)
+
+SupplierProduct (Mối quan hệ Nhà cung cấp - Sản phẩm):
+
+id
+
+supplier (quan hệ Many-to-One với Supplier)
+
+product (quan hệ Many-to-One với Product)
+
+Với các mối quan hệ trên, bạn có thể tạo ra một database phức tạp hơn nhưng cũng mạnh mẽ hơn, giúp bạn quản lý cửa hàng, sản phẩm, nhân viên, khách hàng, đơn hàng, và nhà cung cấp một cách hiệu quả. Các mối quan hệ Many-to-Many nên được thực hiện qua các bảng trung gian (junction table) để đảm bảo tính linh hoạt và dễ dàng trong việc quản lý dữ liệu.

@@ -1,0 +1,51 @@
+.container_auth {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    width: 100%;
+    overflow: hidden;
+    padding: 0 20px;
+    background-image: url("./../../../../public/background_auth.jpg");
+    background-size: cover;
+    background-position: center;
+    background-repeat: no-repeat;
+}
+
+.container-form {
+  background-color: white;
+  box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+  padding: 20px;
+  border-radius: 10px;
+  min-height: 300px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+ 
+}
+.heading_auth {
+  font-size: 25px;
+  color: #1677ff;
+  margin-bottom: 25px;
+  font-style: italic;
+}
+.formlogin {
+    width: 100%;
+}
+.forgotpass .ant-form-item-control-input-content{
+    display: flex;
+    justify-content: space-between;
+}
+#components-form-demo-normal-login .login-form {
+    max-width: 300px;
+  }
+  #components-form-demo-normal-login .login-form-forgot {
+    float: right;
+  }
+  #components-form-demo-normal-login .ant-col-rtl .login-form-forgot {
+    float: left;
+  }
+  .login-form-button {
+    width: 100%;
+  }

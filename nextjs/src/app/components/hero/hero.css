@@ -1,0 +1,56 @@
+/* 
+hero
+---- 
+*/
+.heroBlock {
+    background: url('./../../../../public/bg-hero.jpg') no-repeat;
+    background-position: 50% 100%;
+    background-size: cover;
+    height: 100vh;
+  }
+  
+  .heroBlock .container-fluid {
+    display: block !important;
+  }
+  
+  .heroBlock .ant-carousel,
+  .heroBlock .ant-carousel div {
+    height: 100%;
+  }
+  
+  .heroBlock .slick-dots li button {
+    background: #000 !important;
+  }
+  
+  .heroBlock .slick-dots li.slick-active button {
+    background: #1890ff !important;
+  }
+  
+  .heroBlock .content {
+    max-width: 640px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    padding: 0 0 70px;
+  }
+  
+  .heroBlock h3 {
+    font-size: 30px;
+    line-height: 1.2;
+    margin: 0 0 30px;
+  }
+  
+  .heroBlock p {
+    margin: 0 0 30px;
+  }
+  
+  .heroBlock .btnHolder {
+    height: auto !important;
+    display: flex;
+    align-items: center;
+  }
+  
+  .heroBlock .btnHolder button,
+  .heroBlock .btnHolder .fas {
+    margin: 0 10px 0 0;
+  }
